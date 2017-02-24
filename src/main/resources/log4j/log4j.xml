@@ -19,10 +19,10 @@
 
     <!-- [DEFAULT-APPENDER] 这个class表示输入到文件，并且按日期生成新文件-->
     <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${log.root}/common-default.log" />  <!-- ${webapp.root}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
+        <param name="File" value="${log.root}/default-log.log" />  <!-- ${webapp.root}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
         <param name="Append" value="true" />  <!-- 是否项目重启继续保存之前日志 -->
         <param name="encoding" value="UTF-8" />
-        <param name="threshold" value="all" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->
+        <param name="threshold" value="ALL" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->
         <param name="DatePattern" value="'.'yyyy-MM-dd" />  <!-- 日期格式  例子：common-default.log.2017-01-01-->
         <layout class="org.apache.log4j.PatternLayout">  <!-- 输出方式 -->
             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
@@ -31,7 +31,7 @@
 
     <!-- [DEBUG-APPENDER] -->
     <appender name="DEBUG-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${log.root}/controller/debug-log.log" />
+        <param name="File" value="${log.root}/debug-log.log" />
         <param name="Append" value="true" />
         <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />
@@ -42,7 +42,7 @@
 
     <!-- [INFO-APPENDER] -->
     <appender name="INFO-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="File" value="${log.root}/controller/info-log.log" />
+        <param name="File" value="${log.root}/info-log.log" />
         <param name="Append" value="false" />
         <param name="encoding" value="UTF-8" />
         <param name="DatePattern" value="'.'yyyy-MM-dd" />
@@ -51,8 +51,8 @@
         </layout>
         <!-- 只记录info日志，做如下设置 -->
         <filter class="org.apache.log4j.varia.LevelRangeFilter">
-            <param name="LevelMax" value="info"/>
-            <param name="LevelMin" value="info"/>
+            <param name="LevelMax" value="ERROR"/>
+            <param name="LevelMin" value="INFO"/>
         </filter>
     </appender>
 
@@ -62,7 +62,7 @@
         <param name="File" value="${log.root}/logistics-component.log" />
         <param name="Append" value="true" />
         <param name="encoding" value="UTF-8" />
-        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
         </layout>
@@ -78,7 +78,7 @@
     <!-- Root Logger -->
     <root>
         <level value="${log.level}"></level>  <!-- 限定记录等级 -->
-        <appender-ref ref="DEFAULT-APPENDER" />  <!-- 调用记录方式 -->
+        <appender-ref ref="INFO-APPENDER" />  <!-- 调用记录方式 -->
         <appender-ref ref="CONSOLE"/>
     </root>
 
