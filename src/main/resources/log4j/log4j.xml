@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+    <!-- [CONSOLE] 不同的输出类型对应着不同的class，如控制台输出class对应着 org.apache.log4j.ConsoleAppender -->
+    <appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+        <param name="encoding" value="UTF-8" />
+        <param name="target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
+        </layout>
+        <!--filter过滤器设置输出的级别:ALL < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+            所有下面输出的是debug到warn不会有error和fatal-->
+        <!--<filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="levelMin" value="debug" />
+            <param name="levelMax" value="warn" />
+            <param name="AcceptOnMatch" value="true" />
+        </filter>-->
+    </appender>
+
+    <!-- [DEFAULT-APPENDER] 这个class表示输入到文件，并且按日期生成新文件-->
+    <appender name="DEFAULT-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${log.root}/common-default.log" />  <!-- ${webapp.root}项目根路径，自动获得，不用配置，可自己在web.xml中配置 -->
+        <param name="Append" value="true" />  <!-- 是否项目重启继续保存之前日志 -->
+        <param name="encoding" value="UTF-8" />
+        <param name="threshold" value="all" /> <!-- 记录所有类型日志，记录它和比它等级高的日志all<debug -->
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />  <!-- 日期格式  例子：common-default.log.2017-01-01-->
+        <layout class="org.apache.log4j.PatternLayout">  <!-- 输出方式 -->
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
+        </layout>
+    </appender>
+
+    <!-- [DEBUG-APPENDER] -->
+    <appender name="DEBUG-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${log.root}/controller/debug-log.log" />
+        <param name="Append" value="true" />
+        <param name="encoding" value="UTF-8" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
+        </layout>
+    </appender>
+
+    <!-- [INFO-APPENDER] -->
+    <appender name="INFO-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${log.root}/controller/info-log.log" />
+        <param name="Append" value="false" />
+        <param name="encoding" value="UTF-8" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
+        </layout>
+        <!-- 只记录info日志，做如下设置 -->
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMax" value="info"/>
+            <param name="LevelMin" value="info"/>
+        </filter>
+    </appender>
+
+    <!-- [COMPONENT-APPENDER] -->
+    <appender name="COMPONENT-APPENDER"
+              class="org.apache.log4j.DailyRollingFileAppender">
+        <param name="File" value="${log.root}/logistics-component.log" />
+        <param name="Append" value="true" />
+        <param name="encoding" value="UTF-8" />
+        <param name="DatePattern" value="'.'yyyy-MM-dd'.log'" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p [%c.%M(%L)] %m%n" />
+        </layout>
+    </appender>
+
+    <!-- debug log -->
+    <!-- name指定的是包名，表示这个logger只记录com.fanlx.controller下的所有日志 -->
+    <!--<logger name="com.fanlx.controller" additivity="true">  &lt;!&ndash; additivity 是否继承root &ndash;&gt;
+        <level value="DEBUG"></level>
+        <appender-ref ref="DEBUG-APPENDER" />
+    </logger>-->
+
+    <!-- Root Logger -->
+    <root>
+        <level value="${log.level}"></level>  <!-- 限定记录等级 -->
+        <appender-ref ref="DEFAULT-APPENDER" />  <!-- 调用记录方式 -->
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+</log4j:configuration>
