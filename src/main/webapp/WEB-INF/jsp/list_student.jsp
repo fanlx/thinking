@@ -12,8 +12,8 @@
     <title>student list</title>
 </head>
 <body>
-<c:if test="${!empty list}">
-    <c:forEach var="student" items="${list}">
+<c:if test="${!empty pageInfo.list}">
+    <c:forEach var="student" items="${pageInfo.list}">
         姓名：${student.name} <br />
     </c:forEach>
 </c:if>

@@ -2,15 +2,15 @@ package com.fanlx.controller;
 
 import com.fanlx.entity.Student;
 import com.fanlx.service.StudentService;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by fanlx on 24/02/2017.
@@ -25,10 +25,11 @@ public class StudentController {
     private StudentService studentService;
 
     @RequestMapping("/listStudent")
-    public String listStudent(HttpServletRequest request, Model model) {
+    public String listStudent(Model model, @RequestParam(value = "pageNum", required = false, defaultValue = "1") int pageNum,
+                              @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize) {
         log.info("query all students");
-        List<Student> list = studentService.listStudent();
-        model.addAttribute("list", list);
+        PageInfo<Student> pageInfo = studentService.getStudentPage(pageNum, pageSize);
+        model.addAttribute("pageInfo", pageInfo);
         return "list_student";
     }
 }

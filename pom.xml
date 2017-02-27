@@ -90,7 +90,14 @@
             <version>${mybatis-spring.version}</version>
         </dependency>
 
-        <!-- AspectJ -->
+        <!-- mybatis-pagehelper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <!-- AspectJ, Spring-AOP dependency -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
@@ -112,6 +119,12 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.6</version>
         </dependency>
 
         <!-- druid -->
@@ -138,7 +151,7 @@
             <version>1.1.2</version>
         </dependency>
 
-        <!-- json -->
+        <!-- Spring-JSON dependency -->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
@@ -176,7 +189,7 @@
                 <artifactId>mybatis-generator-maven-plugin</artifactId>
                 <version>${mybatis-generator.version}</version>
                 <configuration>
-                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <configurationFile>src/main/resources/generator-config.xml</configurationFile>
                     <verbose>true</verbose>
                     <overwrite>true</overwrite>
                 </configuration>

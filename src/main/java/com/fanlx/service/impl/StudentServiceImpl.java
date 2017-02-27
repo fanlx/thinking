@@ -3,6 +3,8 @@ package com.fanlx.service.impl;
 import com.fanlx.entity.Student;
 import com.fanlx.entity.mapper.StudentMapper;
 import com.fanlx.service.StudentService;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -17,8 +19,11 @@ public class StudentServiceImpl implements StudentService {
     @Resource
     private StudentMapper studentMapper;
 
-    public List<Student> listStudent() {
-        return studentMapper.listAll();
+    public PageInfo<Student> getStudentPage(int pageNum, int pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Student> students = studentMapper.listAll();
+        PageInfo<Student> pageInfo = new PageInfo<Student>(students);
+        return pageInfo;
     }
 
     public Student getStudent(Integer id) {
