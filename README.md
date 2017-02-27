@@ -2,7 +2,9 @@
 
 使用Spring4.0.5.RELEASE+SpringMVC4.0.5.RELEASE+Mybatis3.3.0
 
-集成了Mybatis分页插件和通用Mapper插件
+集成了Mybatis-Generator代码生成插件
+
+集成了Mybatis-Pagehelper插件和通用Mapper插件
 
 集成了log4j
 
