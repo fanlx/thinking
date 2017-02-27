@@ -1,5 +1,4 @@
-
-#SSM集成的基础项目，项目使用Maven管理
+#SSM集成项目，使用Maven管理
 
 使用Spring4.0.5.RELEASE+SpringMVC4.0.5.RELEASE+Mybatis3.3.0
 
